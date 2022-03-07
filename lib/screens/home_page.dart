@@ -39,7 +39,13 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(width: 10.0),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () async {
+              await valueDB.set({
+                "value": "10",
+                "description":"Sent from App"
+              }).then((value) => print("Sent to the DB"))
+              .catchError((error) => print("Error to connect, $error"));
+            },
             child: Icon(Icons.send_to_mobile),
           ),
         ],
