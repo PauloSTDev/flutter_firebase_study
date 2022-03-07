@@ -15,6 +15,25 @@ class _HomePageState extends State<HomePage> {
         title: Text("Firebase Study"),
         centerTitle: true,
       ),
+      body: Row(
+        children: [
+          Center(
+            child: Text("Exemplos"),
+          ),
+        ],
+      ),
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.call_received),
+          ),
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.send_to_mobile),
+          ),
+        ],
+      ),
     );
   }
 }
