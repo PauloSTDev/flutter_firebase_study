@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //Adiciona a referencia do DB
+  final database = FirebaseDatabase.instance.reference();
+
   @override
   Widget build(BuildContext context) {
+    final valueDB = database.child("valuesDB/");
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Firebase Study"),
