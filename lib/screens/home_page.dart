@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,18 +17,21 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text("Exemplos"),
+            child: Text("Exemplos: "),
           ),
         ],
       ),
       floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
             onPressed: () {},
             child: Icon(Icons.call_received),
           ),
+          SizedBox(width: 10.0),
           FloatingActionButton(
             onPressed: () {},
             child: Icon(Icons.send_to_mobile),
