@@ -29,21 +29,31 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.yellow,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shadowColor: Colors.yellow,
                 ),
                 onPressed: () {},
-                child: Text("Enviar Valores", style: TextStyle(color: Colors.black),),
+                child: Row(
+                  children: [
+                    Icon(Icons.send_to_mobile),
+                    Text("Enviar Valores", style: TextStyle(color: Colors.black),),
+                  ],
+                ),
               ),
             ),
             Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: Colors.yellow,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    shadowColor: Colors.yellow,
                 ),
                 onPressed: () {},
-                child: Text("Baixar Valores", style: TextStyle(color: Colors.black),),
+                child: Row(
+                  children: [
+                    Icon(Icons.call_received),
+                    Text("Baixar Valores", style: TextStyle(color: Colors.black),),
+                  ],
+                ),
               ),
             ),
           ],
