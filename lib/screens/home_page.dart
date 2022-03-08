@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final valueDB = database.child("valuesDB/");
+    final otherValue = database.child("someOtherValue/");
 
     return Scaffold(
       appBar: AppBar(
@@ -40,11 +41,21 @@ class _HomePageState extends State<HomePage> {
           SizedBox(width: 10.0),
           FloatingActionButton(
             onPressed: () async {
-              await valueDB.set({
+              //await valueDB.update({
+              //  "value": "20"
+              //});
+
+              await otherValue.set({
+                "value": "50000",
+                "description":"Sent from App",
+              }).then((value) => print("Sent to the DB"))
+                  .catchError((error) => print("Error to connect, $error"));
+
+              await valueDB.update({
                 "value": "10",
                 "description":"Sent from App"
               }).then((value) => print("Sent to the DB"))
-              .catchError((error) => print("Error to connect, $error"));
+                  .catchError((error) => print("Error to connect, $error"));
             },
             child: Icon(Icons.send_to_mobile),
           ),
