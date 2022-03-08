@@ -23,13 +23,31 @@ class _HomePageState extends State<HomePage> {
         title: Text("Firebase Study"),
         centerTitle: true,
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text("Exemplos: "),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.yellow,
+                ),
+                onPressed: () {},
+                child: Text("Enviar Valores", style: TextStyle(color: Colors.black),),
+              ),
+            ),
+            Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.yellow,
+                ),
+                onPressed: () {},
+                child: Text("Baixar Valores", style: TextStyle(color: Colors.black),),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -45,16 +63,17 @@ class _HomePageState extends State<HomePage> {
               //  "value": "20"
               //});
 
-              await otherValue.set({
-                "value": "50000",
-                "description":"Sent from App",
-              }).then((value) => print("Sent to the DB"))
+              await otherValue
+                  .set({
+                    "value": "50000",
+                    "description": "Sent from App",
+                  })
+                  .then((value) => print("Sent to the DB"))
                   .catchError((error) => print("Error to connect, $error"));
 
-              await valueDB.update({
-                "value": "10",
-                "description":"Sent from App"
-              }).then((value) => print("Sent to the DB"))
+              await valueDB
+                  .update({"value": "10", "description": "Sent from App"})
+                  .then((value) => print("Sent to the DB"))
                   .catchError((error) => print("Error to connect, $error"));
             },
             child: Icon(Icons.send_to_mobile),
