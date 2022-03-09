@@ -11,12 +11,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //Adiciona a referencia do DB
-  final database = FirebaseDatabase.instance.reference();
+  final _database = FirebaseDatabase.instance.reference();
+
+  /**Inicia setState para renderização
+  @override
+  void initState() {
+    super initState();
+    _activateListeners();
+  }
+  void _ac**/
+
+
 
   @override
   Widget build(BuildContext context) {
-    final valueDB = database.child("valuesDB/");
-    final otherValue = database.child("someOtherValue/");
+    //Referencias/Paths do banco
+    final valueDB = _database.child("valuesDB/");
+    final otherValue = _database.child("someOtherValue/");
 
     return Scaffold(
       appBar: AppBar(
@@ -26,32 +37,69 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Center(
+            Container(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shadowColor: Colors.yellow,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  //await valueDB.update({
+                  //  "value": "20"
+                  //});
+                  await otherValue
+                      .update({
+                    "value": "99999",
+                    "description": "Updated from App",
+                    "detailsUpdate":"Atualiza campos existentes e cria caso não exista ainda"
+                  })
+                      .then((value) => print("Update OtherValue"))
+                      .catchError((error) => print("Error to connect, $error"));
+
+                  await valueDB
+                      .update({"value": "999", "description": "Updated from App"})
+                      .then((value) => print("Update valueDB"))
+                      .catchError((error) => print("Error to connect, $error"));
+                },
                 child: Row(
                   children: [
                     Icon(Icons.send_to_mobile),
-                    Text("Enviar Valores", style: TextStyle(color: Colors.black),),
+                    Text(
+                      "Update",
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ),
             ),
-            Center(
+            Container(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    shadowColor: Colors.yellow,
+                  shadowColor: Colors.yellow,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await otherValue
+                      .set({
+                    "value": "50000",
+                    "description": "Sent from App",
+                    "detailsSet":"Define/Seta a base dados com o que está sendo enviado, ignora chaves e valores que existiam antes."
+                  })
+                      .then((value) => print("Set OtherValue"))
+                      .catchError((error) => print("Error to connect, $error"));
+
+                  await valueDB
+                      .set({"value": "10", "description": "Sent from App"})
+                      .then((value) => print("Set ValueDB"))
+                      .catchError((error) => print("Error to connect, $error"));
+                },
                 child: Row(
                   children: [
-                    Icon(Icons.call_received),
-                    Text("Baixar Valores", style: TextStyle(color: Colors.black),),
+                    Icon(Icons.send_to_mobile),
+                    Text(
+                      "Set",
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ],
                 ),
               ),
@@ -72,19 +120,6 @@ class _HomePageState extends State<HomePage> {
               //await valueDB.update({
               //  "value": "20"
               //});
-
-              await otherValue
-                  .set({
-                    "value": "50000",
-                    "description": "Sent from App",
-                  })
-                  .then((value) => print("Sent to the DB"))
-                  .catchError((error) => print("Error to connect, $error"));
-
-              await valueDB
-                  .update({"value": "10", "description": "Sent from App"})
-                  .then((value) => print("Sent to the DB"))
-                  .catchError((error) => print("Error to connect, $error"));
             },
             child: Icon(Icons.send_to_mobile),
           ),
