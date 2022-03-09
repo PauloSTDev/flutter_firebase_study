@@ -12,14 +12,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Adiciona a referencia do DB
   final _database = FirebaseDatabase.instance.reference();
+  //Valor que será buscado no banco
+  String _displayValue = "Results go Here";
 
-  /**Inicia setState para renderização
+  //Inicia setState para renderização
   @override
   void initState() {
-    super initState();
+    super.initState();
     _activateListeners();
   }
-  void _ac**/
+  void _activateListeners() {
+    _database.child("valuesDB").child("value")
+    .onValue.listen((event) {
+      final String values = event.snapshot.value;
+      setState(() {
+        _displayValue = "Valor no Banco:${values}";
+      });
+    });
+  }
 
 
 
