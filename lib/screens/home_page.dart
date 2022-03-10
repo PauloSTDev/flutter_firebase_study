@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Adiciona a referencia do DB
   final _database = FirebaseDatabase.instance.reference();
+  final _databaseRead = FirebaseDatabase.instance.reference();
   //Valor que será buscado no banco
   String _displayValue = "Results go Here";
 
@@ -22,11 +23,11 @@ class _HomePageState extends State<HomePage> {
     _activateListeners();
   }
   void _activateListeners() {
-    _database.child("valuesDB").child("value")
+    _databaseRead.child("valuesDB").child("value")
     .onValue.listen((event) {
       final String values = event.snapshot.value;
       setState(() {
-        _displayValue = "Valor no Banco:${values}";
+        _displayValue = "Valor no Banco: $values";
       });
     });
   }
@@ -82,6 +83,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+            ),
+            Container(
+              child: Text(_displayValue),
             ),
             Container(
               child: ElevatedButton(
