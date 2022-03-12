@@ -13,7 +13,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
