@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     _activateListeners();
   }
   void _activateListeners() {
-    _databaseRead.child("valuesDB").child("value")
+    _databaseRead.child("valuesdb").child("value")
     .onValue.listen((event) {
       final String values = event.snapshot.value;
       setState(() {
@@ -33,12 +33,12 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     //Referencias/Paths do banco
-    final valueDB = _database.child("valuesDB/");
-    final otherValue = _database.child("someOtherValue/");
+    final valueDB = _database.child("valuesdb/");
+    final otherValue = _database.child("someothervalue/");
+    final usersDB = _database.child("users/");
 
     return Scaffold(
       appBar: AppBar(
@@ -134,19 +134,14 @@ class _HomePageState extends State<HomePage> {
                       shadowColor: Colors.yellow,
                     ),
                     onPressed: () async {
-                      await otherValue
-                          .set({
-                        "value": "50000",
-                        "description": "Sent from App",
-                        "detailsSet":"Define/Seta a base dados com o que está sendo enviado, ignora chaves e valores que existiam antes."
-                      })
-                          .then((value) => print("Set OtherValue"))
-                          .catchError((error) => print("Error to connect, $error"));
-
-                      await valueDB
-                          .set({"value": "10", "description": "Sent from App"})
-                          .then((value) => print("Set ValueDB"))
-                          .catchError((error) => print("Error to connect, $error"));
+                      final cadastro = <String, dynamic> {
+                        "Name": "Paulo",
+                        "Age":"21",
+                        "Course":"Computer Science",
+                        "Email":"novouser@gmail.com",
+                        "Time":DateTime.now().millisecondsSinceEpoch
+                      };
+                      usersDB.push().set(cadastro);
                     },
                     child: Row(
                       children: [
