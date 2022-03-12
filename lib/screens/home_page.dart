@@ -139,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                         "Age":"21",
                         "Course":"Computer Science",
                         "Email":"novouser@gmail.com",
-                        "Time":DateTime.now().millisecondsSinceEpoch
+                        "Time":"${DateTime.now().hour}:${DateTime.now().minute}",
+                        "Data":"Data ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
                       };
                       usersDB.push().set(cadastro);
                     },
