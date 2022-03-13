@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_study/screens/page_photos.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,9 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   //Adiciona a referencia do DB
   final _database = FirebaseDatabase.instance.reference();
   final _databaseRead = FirebaseDatabase.instance.reference();
+
   //Variavel que terá o valor atribuido na busca no banco
   String _displayValue = "Results go Here";
 
@@ -22,16 +26,15 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _activateListeners();
   }
+
   void _activateListeners() {
-    _databaseRead.child("valuesdb").child("value")
-    .onValue.listen((event) {
+    _databaseRead.child("valuesdb").child("value").onValue.listen((event) {
       final String values = event.snapshot.value;
       setState(() {
         _displayValue = "Valor no Banco: $values";
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +66,23 @@ class _HomePageState extends State<HomePage> {
                       //});
                       await otherValue
                           .update({
-                        "value": "99999",
-                        "description": "Updated from App",
-                        "detailsUpdate":"Atualiza campos existentes e cria caso não exista ainda"
-                      })
+                            "value": "99999",
+                            "description": "Updated from App",
+                            "detailsUpdate":
+                                "Atualiza campos existentes e cria caso não exista ainda"
+                          })
                           .then((value) => print("Update OtherValue"))
-                          .catchError((error) => print("Error to connect, $error"));
+                          .catchError(
+                              (error) => print("Error to connect, $error"));
 
                       await valueDB
-                          .update({"value": "999", "description": "Updated from App"})
+                          .update({
+                            "value": "999",
+                            "description": "Updated from App"
+                          })
                           .then((value) => print("Update valueDB"))
-                          .catchError((error) => print("Error to connect, $error"));
+                          .catchError(
+                              (error) => print("Error to connect, $error"));
                     },
                     child: Row(
                       children: [
@@ -97,17 +106,20 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () async {
                       await otherValue
                           .set({
-                        "value": "50000",
-                        "description": "Sent from App",
-                        "detailsSet":"Define/Seta a base dados com o que está sendo enviado, ignora chaves e valores que existiam antes."
-                      })
+                            "value": "50000",
+                            "description": "Sent from App",
+                            "detailsSet":
+                                "Define/Seta a base dados com o que está sendo enviado, ignora chaves e valores que existiam antes."
+                          })
                           .then((value) => print("Set OtherValue"))
-                          .catchError((error) => print("Error to connect, $error"));
+                          .catchError(
+                              (error) => print("Error to connect, $error"));
 
                       await valueDB
                           .set({"value": "10", "description": "Sent from App"})
                           .then((value) => print("Set ValueDB"))
-                          .catchError((error) => print("Error to connect, $error"));
+                          .catchError(
+                              (error) => print("Error to connect, $error"));
                     },
                     child: Row(
                       children: [
@@ -134,13 +146,15 @@ class _HomePageState extends State<HomePage> {
                       shadowColor: Colors.yellow,
                     ),
                     onPressed: () async {
-                      final cadastro = <String, dynamic> {
+                      final cadastro = <String, dynamic>{
                         "Name": "Paulo",
-                        "Age":"21",
-                        "Course":"Computer Science",
-                        "Email":"novouser@gmail.com",
-                        "Time":"${DateTime.now().hour}:${DateTime.now().minute}",
-                        "Data":"Data ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                        "Age": "21",
+                        "Course": "Computer Science",
+                        "Email": "novouser@gmail.com",
+                        "Time":
+                            "${DateTime.now().hour}:${DateTime.now().minute}",
+                        "Data":
+                            "Data ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
                       };
                       usersDB.push().set(cadastro);
                     },
@@ -157,6 +171,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+          ),
+          Container(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                backgroundColor: Colors.yellow,
+                ),
+                child: Text("Fotos", style: TextStyle(color: Colors.black)),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => PagePhotos()));
+                },
+              ),
           ),
         ],
       ),
