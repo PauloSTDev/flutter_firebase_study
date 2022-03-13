@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
   //Adiciona a referencia do DB
   final _database = FirebaseDatabase.instance.reference();
   final _databaseRead = FirebaseDatabase.instance.reference();
-  //Valor que será buscado no banco
+  //Variavel que terá o valor atribuido na busca no banco
   String _displayValue = "Results go Here";
 
   //Inicia setState para renderização
